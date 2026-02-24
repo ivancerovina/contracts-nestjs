@@ -64,7 +64,11 @@ export class ContractValidationInterceptor implements NestInterceptor {
           "Invalid Query Parameters",
         );
       }
-      request.query = result.data;
+      Object.defineProperty(request, "query", {
+        value: result.data,
+        writable: true,
+        configurable: true,
+      });
     }
 
     // Validate Body
